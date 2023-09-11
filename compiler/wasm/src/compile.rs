@@ -100,7 +100,7 @@ pub fn compile(args: JsValue) -> JsValue {
     debug!("Compiler configuration {:?}", &options);
 
     let root = Path::new("/");
-    let fm = FileManager::new(root);
+    let fm = FileManager::new(root, Box::new(fm::read_file_to_string));
     let graph = CrateGraph::default();
     let mut context = Context::new(fm, graph);
 

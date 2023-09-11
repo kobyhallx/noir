@@ -5,6 +5,8 @@ use std::path::Path;
 // Based on the environment, we either read files using the rust standard library or we
 // read files using the javascript host function
 
+pub(super) type FileReader = dyn Fn(&Path) -> Result<String, std::io::Error>;
+
 #[derive(RustEmbed)]
 #[folder = "../../noir_stdlib/src"]
 #[cfg_attr(not(target_os = "windows"), prefix = "std/")]
@@ -33,7 +35,7 @@ cfg_if::cfg_if! {
 
         }
 
-        pub(crate) fn read_file_to_string(path_to_file: &Path) -> Result<String, Error> {
+        pub fn read_file_to_string(path_to_file: &Path) -> Result<String, Error> {
             use std::io::ErrorKind;
 
             let path_str = path_to_file.to_str().unwrap();
@@ -52,7 +54,7 @@ cfg_if::cfg_if! {
         }
     } else {
 
-        pub(crate) fn read_file_to_string(path_to_file: &Path) -> Result<String, Error> {
+        pub fn read_file_to_string(path_to_file: &Path) -> Result<String, Error> {
 
             match StdLibAssets::get(path_to_file.to_str().unwrap()) {
 

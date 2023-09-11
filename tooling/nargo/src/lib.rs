@@ -44,7 +44,7 @@ pub fn prepare_dependencies(
 
 pub fn prepare_package(package: &Package) -> (Context, CrateId) {
     // TODO: FileManager continues to leak into various crates
-    let fm = FileManager::new(&package.root_dir);
+    let fm = FileManager::new(&package.root_dir, Box::new(fm::read_file_to_string));
     let graph = CrateGraph::default();
     let mut context = Context::new(fm, graph);
 
