@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.13.1](https://github.com/noir-lang/noir/compare/v0.13.0...v0.13.1) (2023-09-21)
+
+
+### Bug Fixes
+
+* **ssa:** Do not replace previously constrained values ([#2647](https://github.com/noir-lang/noir/issues/2647)) ([d528844](https://github.com/noir-lang/noir/commit/d5288449a10d162a0340818a6beab54dd985a11a))
+
 ## [0.13.0](https://github.com/noir-lang/noir/compare/v0.12.0...v0.13.0) (2023-09-21)
 
 
