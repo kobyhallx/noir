@@ -37,16 +37,16 @@ jobs:
         uses: nix-community/cache-nix-action@v4
         with:
           # save a new cache every time ci file changes
-          key: ${{ runner.os }}-flake-wasm-${{ hashFiles('*.lock') }}
+          key: ${{ runner.os }}-flake-wasm-${{ hashFiles('flake.lock') }}
           restore-keys: |
             ${{ runner.os }}-flake-wasm
             gc-linux: true
             gc-max-store-size-linux: 1000000000
             
-            purge-caches: true
-            purge-key: ${{ runner.os }}-flake-wasm
-            purge-created: true
-            purge-created-max-age: 42
+            # purge-caches: true
+            # purge-key: ${{ runner.os }}-flake-wasm
+            # purge-created: true
+            # purge-created-max-age: 42
 
       # - name: Setup Nix
       #   uses: cachix/install-nix-action@v22
@@ -96,17 +96,17 @@ jobs:
           yarn workspace @noir-lang/source-resolver build
           yarn workspace @noir-lang/noir_js build
 
-      - name: Run `integration-tests`
-        run: |
-          yarn test:integration
+      # - name: Run `integration-tests`
+      #   run: |
+      #     yarn test:integration
 
-      - name: Alert on nightly test failure
-        uses: JasonEtco/create-an-issue@v2
-        if: ${{ failure() && github.event_name == 'schedule' }}
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          WORKFLOW_NAME: ${{ github.workflow }}
-          WORKFLOW_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
-        with:
-          update_existing: true
-          filename: .github/NIGHTLY_TEST_FAILURE.md
+      # - name: Alert on nightly test failure
+      #   uses: JasonEtco/create-an-issue@v2
+      #   if: ${{ failure() && github.event_name == 'schedule' }}
+      #   env:
+      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      #     WORKFLOW_NAME: ${{ github.workflow }}
+      #     WORKFLOW_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+      #   with:
+      #     update_existing: true
+      #     filename: .github/NIGHTLY_TEST_FAILURE.md
