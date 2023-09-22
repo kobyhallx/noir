@@ -6,6 +6,7 @@ on:
   push:
     branches:
       - master
+      - kh-recursive-e2e
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.head_ref || github.ref || github.run_id }}
