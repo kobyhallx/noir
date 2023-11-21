@@ -1,0 +1,25 @@
+package noir:lib;
+
+interface compiler {
+
+    record dependency-graph {
+
+    }
+
+    record compile-result {
+
+    }
+
+    record compile-error {
+
+    }
+
+    compile: func(entry-point: string, contracts: option<bool>, dependency-graph: option<dependency-graph>) -> result<compile-result, compile-error>;
+
+}
+
+world noir-lib {
+    
+    import compiler;
+    
+}
